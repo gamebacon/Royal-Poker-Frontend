@@ -22,7 +22,7 @@ const Game = () => {
       });
 
       socket.on('message', (msg) => {
-        console.log('New message received:', msg); // Log received messages
+        console.log(msg);
         setMessages((prev) => [...prev, msg]);
       });
 
@@ -47,19 +47,45 @@ const Game = () => {
   };
 
   return (
-    <div>
+    <div
+      className='bg-blue- 500'
+    >
       <h1>Game</h1>
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={sendMessage}>Send</button>
+      <div
+        className='flex'
+      >
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className='border p-1 rounded-sm'
+        />
+        <button 
+          className='border p-2 rounded-sm'
+        onClick={sendMessage}>Send</button>
+      </div>
       <div>
+        <ol>
         {messages.map((msg, index) => (
-          <div key={index}>
-            <strong>{msg.user.displayName}:</strong> {msg.text}
-          </div>
+          <li>
+            <div 
+              className='flex items-center space-x-2'
+              key={index}
+            >
+              <img
+                className='rounded-full h-6'
+                src={msg.user.image}
+                alt='profile-image'
+              />
+              <strong>{msg.user.displayName}:</strong>
+              <span
+                className='text-blue-400'
+              >
+               {msg.text}
+              </span>
+            </div>
+          </li>
         ))}
+        </ol>
       </div>
     </div>
   );
