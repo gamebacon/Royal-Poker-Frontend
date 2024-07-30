@@ -1,9 +1,10 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import { auth } from './firebase';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useSocket } from './SocketContext';
 import Game from './Game';
+import LoginModal from './login/LoginModal';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -18,17 +19,22 @@ const App = () => {
   }, [socket]);
 
   useEffect(() => {
-    if (socket && user) {
-      const authenticateSocket = async () => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
         const token = await user.getIdToken();
         console.log('User authenticated:', user);
-        console.log('Setting socket auth and connecting');
-        socket.auth = { token };
-        socket.connect();
-      };
-      authenticateSocket();
-    }
-  }, [socket, user]);
+        if (socket) {
+          console.log('Setting socket auth and connecting');
+          socket.auth = { token };
+          socket.connect();
+        }
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, [socket]);
 
   const signInWithGoogle = async () => {
     try {
@@ -40,12 +46,32 @@ const App = () => {
     }
   };
 
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      if (socket) {
+        socket.disconnect();
+      }
+      console.log('User signed out successfully');
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
+
   return (
-    <div>
+    <div
+      className='h-screen w-screen relative'
+    >
       {user ? (
-        <Game />
+        <Game 
+          signOut={handleSignOut}
+        />
       ) : (
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
+        <LoginModal
+          onSubmit={signInWithGoogle}
+        />
       )}
     </div>
   );

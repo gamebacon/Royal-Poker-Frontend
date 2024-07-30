@@ -1,8 +1,9 @@
 // src/Game.js
 import React, { useState, useEffect } from 'react';
+import propTypes from 'prop-types';
 import { useSocket } from './SocketContext';
 
-const Game = () => {
+const Game = ({signOut}) => {
   const socket = useSocket();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -48,7 +49,6 @@ const Game = () => {
 
   return (
     <div
-      className='bg-blue- 500'
     >
       <h1>Game</h1>
       <div
@@ -87,8 +87,18 @@ const Game = () => {
         ))}
         </ol>
       </div>
+      <button
+        className='hover:underline fixed top-10 right-10'
+        onClick={signOut}
+      >
+        Sign out
+      </button>
     </div>
   );
 };
+
+Game.propTypes = {
+  signOut: propTypes.func.isRequired,
+}
 
 export default Game;
