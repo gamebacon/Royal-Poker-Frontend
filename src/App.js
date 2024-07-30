@@ -3,52 +3,49 @@ import React, { useState, useEffect } from 'react';
 import { auth } from './firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { SocketProvider, useSocket } from './SocketContext';
-
-const Game = () => {
-  const socket = useSocket();
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('message', (msg) => setMessages((prev) => [...prev, msg]));
-    }
-  }, [socket]);
-
-  const sendMessage = () => {
-    if (socket) {
-      socket.emit('message', message);
-      setMessage('');
-    }
-  };
-
-  return (
-    <div>
-      <h1>Game</h1>
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={sendMessage}>Send</button>
-      <div>
-        {messages.map((msg, index) => (
-          <div key={index}>user: {msg}</div>
-        ))}
-      </div>
-    </div>
-  );
-};
+import Game from './Game';
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const socket = useSocket();
 
   useEffect(() => {
-    auth.onAuthStateChanged(setUser);
-  }, []);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken();
+        console.log('User authenticated:', user);
+        console.log('Auth token:', token);
 
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+        if (socket) {
+          console.log('Setting socket auth and connecting');
+        console.log('con 2')
+          socket.auth = { token };
+          socket.connect();
+        }
+        setUser(user);
+      }
+    });
+    return () => unsubscribe();
+  }, [socket]);
+
+  const signInWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      setUser(result.user);
+      const token = await result.user.getIdToken();
+      console.log('Signed in user:', result.user);
+      console.log('Auth token:', token);
+
+      if (socket) {
+        console.log('Setting socket auth and connecting');
+        console.log('con 1')
+        socket.auth = { token };
+        socket.connect();
+      }
+    } catch (error) {
+      console.error('Error signing in with Google: ', error);
+    }
   };
 
   return (

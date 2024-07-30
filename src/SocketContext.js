@@ -4,16 +4,21 @@ import io from 'socket.io-client';
 
 const SocketContext = createContext();
 
-export const useSocket = () => useContext(SocketContext);
+export const useSocket = () => {
+  return useContext(SocketContext);
+};
 
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
-  const port = 5050;
 
   useEffect(() => {
-    const newSocket = io('http://localhost:' + port); // Adjust the backend URL as needed
+    const newSocket = io('http://localhost:5050', { autoConnect: false });
+    console.log('Socket instance created:', newSocket); // Log socket instance creation
     setSocket(newSocket);
-    return () => newSocket.close();
+
+    return () => {
+      newSocket.close();
+    };
   }, []);
 
   return (
