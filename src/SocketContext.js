@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
-const SocketContext = createContext();
+const SocketContext = createContext(null);
 
 export const useSocket = () => {
   return useContext(SocketContext);
