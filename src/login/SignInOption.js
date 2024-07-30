@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 const SignInOption = ({icon, text, onClick}) => {
     return (
         <button
-            className='flex items-center justify-center border rounded-md p-1 w-full
+            className='flex items-center justify-center border rounded-2xl p-1 w-full
             space-x-4 hover:opacity-60 transition-all hover:bg-gray-50'
             onClick={onClick}
         >

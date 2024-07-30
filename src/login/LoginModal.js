@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import SignInOption from './SignInOption';
 import { AiOutlineMail } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
+import { GiPokerHand } from 'react-icons/gi';
 
 
 
@@ -27,10 +28,20 @@ const LoginModal = ({onSubmit}) => {
     return (
         <div
             className='
-            absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-            max-w-[500px] max-h-[800px] border
-            h-full w-full shadow-lg rounded-md p-10'
+            absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+            max-w-[500px] max-h-[800px] border mt-20
+            h-fit w-full shadow-lg rounded-2xl p-10'
         >
+            <div
+                className='flex flex-col justify-center text-center items-center'
+            >
+                <h1
+                    className='text-3xl font-bold'
+                >Royal poker</h1>
+                <GiPokerHand
+                    className='size-48'
+                />
+            </div>
             <div
                 className='flex flex-col justify-center text-center'
             >
@@ -49,6 +60,15 @@ const LoginModal = ({onSubmit}) => {
                     />
                 )}
                 </ol>
+            <aside
+                className='mt-6'
+            >
+                <a
+                    className='text-xs text-blue-600 underline'
+                    target='_blank'
+                    href='https://google.com' rel="noreferrer"
+                >Need help?</a>
+            </aside>
             </div>
         </div>
     )
