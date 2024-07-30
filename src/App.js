@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { auth } from './firebase';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useSocket } from './SocketContext';
-import Game from './Game';
+import Game from './game/Game';
 import LoginModal from './login/LoginModal';
 
 const App = () => {
@@ -62,11 +62,12 @@ const App = () => {
 
   return (
     <div
-      className='h-screen w-screen relative'
+      className='h-screen w-screen relative bg-background'
     >
       {user ? (
         <Game 
           signOut={handleSignOut}
+          socket={socket}
         />
       ) : (
         <LoginModal
