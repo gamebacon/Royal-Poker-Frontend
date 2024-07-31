@@ -5,6 +5,8 @@ import { AiOutlineMail } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { GiPokerHand } from 'react-icons/gi';
 import { BiCopyright } from 'react-icons/bi';
+import { FaFacebook } from 'react-icons/fa';
+import { BsTwitterX } from 'react-icons/bs';
 
 
 
@@ -12,18 +14,25 @@ const LoginModal = ({onSubmit}) => {
     const signInOptions = [
         {
             icon: <FcGoogle
-                size={32}
+                size={20}
             />,
             type: 'Google',
             onClick: () => onSubmit(),
         },
         {
-            icon: <AiOutlineMail
-                size={32}
+            icon: <FaFacebook
+                size={20}
             />,
-            type: 'Email',
+            type: 'Facebook',
             onClick: () => onSubmit(),
-        }
+        },
+        {
+            icon: <BsTwitterX
+                size={20}
+            />,
+            type: 'Twitter',
+            onClick: () => onSubmit(),
+        },
     ]
 
     return (
@@ -56,8 +65,8 @@ const LoginModal = ({onSubmit}) => {
                 className='flex flex-col justify-center text-center'
             >
                 <h2
-                    className='opacity-50 mb-10'
-                >Sign in below with</h2>
+                    className='opacity-50 mb-4 text-sm'
+                >Sign in to play</h2>
                 <ol
                     className='space-y-2 w-full'
                 >

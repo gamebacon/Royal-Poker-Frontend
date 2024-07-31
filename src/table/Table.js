@@ -14,9 +14,10 @@ const Table = props => {
     <div
         className='bg-tableGreen
           absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-         rounded-full relative
+         rounded-[350px] relative
          border-[60px]
-         border-tableBorder
+         bg-gradient-to-tl from-green-900 to-green-1000
+         border-black
         h-2/3
         w-4/5
          '

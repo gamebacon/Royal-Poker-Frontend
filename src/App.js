@@ -70,8 +70,11 @@ const App = () => {
 
   return (
     <div
-      className='h-screen w-screen relative bg-background'
+      className='relative h-screen w-screen p-10'
     >
+      <div
+        className='bg-gradient-to-br from-[#354c7c] to-[#022954] rounded-3xl w-full h-full'
+      >
       {user ? (
         <Game 
           signOut={handleSignOut}
@@ -89,6 +92,7 @@ const App = () => {
           />
       )
     }
+      </div>
   </div>
   );
 };

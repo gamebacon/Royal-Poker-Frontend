@@ -5,8 +5,8 @@ import { FaSignOutAlt } from 'react-icons/fa'
 const LogoutButton = props => {
   return (
       <button
-        className='hover:underline fixed top-10 right-10 
-        flex items-center justify-between space-x-2 text-white'
+        className='hover:underline fixed top-2 right-10
+        flex items-center justify-between space-x-2 text-black'
         onClick={props.onClick}
       >
         <span>

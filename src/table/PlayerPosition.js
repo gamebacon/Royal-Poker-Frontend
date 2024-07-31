@@ -10,8 +10,8 @@ const PlayerPosition = props => {
         justify-center items-center space-y-2`}
     >
         <img
-            className={`rounded-full border-2 border-white
-                ${isUserPos ? 'size-16' : 'size-12'}`}
+            className={`rounded-full border-[3px] border-white p-1
+                ${isUserPos ? 'size-20' : 'size-12'}`}
             alt='player-image'
             src={props.image}
         />
