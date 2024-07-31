@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { SocketProvider } from './SocketContext';
+import { RecoilRoot } from 'recoil';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <SocketProvider>
-      <App />
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
     </SocketProvider>
   </React.StrictMode>
 );

@@ -30,18 +30,22 @@ const LoginModal = ({onSubmit}) => {
         <div
             className='bg-white
             absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-            max-w-[500px] max-h-[800px] border mt-20
+            max-w-[500px] max-h-[800px]  w-1/3 h-1/2
+            border mt-20
             h-fit w-full shadow-lg rounded-2xl p-10'
         >
             <div
                 className='flex flex-col justify-center text-center items-center'
             >
                 <h1
-                    className='text-3xl font-bold relative'
+                    className='text-xl xl:text-3xl font-bold relative'
                 >Royalpoker.org
                 <BiCopyright
                     className='absolute -right-4 -top-1'
-                    size={18}
+                    style={{
+                        width: '10%',
+                        height: '50%'
+                      }}
                 />
                 </h1>
                 <GiPokerHand

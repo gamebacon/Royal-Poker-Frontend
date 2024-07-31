@@ -4,10 +4,9 @@ import ChatMessage from './ChatMessage';
 import { BiSend } from 'react-icons/bi';
 
 const Chat = ({ socket, messages }) => {
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(true);
   const [message, setMessage] = useState('');
   const scrollRect = useRef();
-  console.log(messages);
 
   useEffect(() => {
     scrollDown();
@@ -29,7 +28,6 @@ const Chat = ({ socket, messages }) => {
     if (socket) {
       socket.on('message', (msg) => {
         setMessage((prev) => [...prev, msg]);
-        console.log('new msg');
         scrollDown();
       });
 
@@ -42,7 +40,7 @@ const Chat = ({ socket, messages }) => {
   const sendMessage = () => {
     if (socket) {
       socket.emit('sendMessage', message);
-      console.log('Message sent:', message); // Log the message sent
+      console.info('Message sent:', message); // Log the message sent
       setMessage('');
       scrollDown();
     }
@@ -57,9 +55,9 @@ const Chat = ({ socket, messages }) => {
           className='absolute -top-8 left-1/2' 
           onClick={() => setHidden(!hidden)}
         >
-          <span
+          {!hidden && <span
             className='text-xs underline text-white'
-          >{hidden ? 'Open' : 'Close'}</span>
+          >Close</span>}
         </button>
       <div className='flex w-full h-12 p-2 space-x-1'
         onClick={() => setHidden(false)}
@@ -72,15 +70,12 @@ const Chat = ({ socket, messages }) => {
           onKeyDown={onEnter}
         />
         <button
-          className='p-1 rounded-full w-1/4
-          transition-all hover:opacity-60 border
+          className='p-1 w-1/4
+          transition-all hover:opacity-60 border bg-black text-white
           flex justify-center items-center space-x-2'
           onClick={sendMessage}
           disabled={!message}
         >
-          <span>
-          Send
-          </span>
           <BiSend
             size={16}
           />

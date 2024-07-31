@@ -5,31 +5,36 @@ import Chat from '../chat/Chat';
 import LogoutButton from '../generic/LogoutButton';
 import Table from '../table/Table';
 
-const Game = ({ signOut, socket }) => {
+const Game = ({ signOut, socket, user }) => {
+  const [game, setGame] = useState(null);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     if (socket) {
-      console.log('Socket initialized in Game:', socket);
+      console.info('Socket initialized in Game');
 
       const handleConnect = () => {
-        console.log('Connected to backend');
+        console.info('Connected to backend');
       };
 
       const handleConnectError = (error) => {
-        console.log('Connection error:', error);
+        console.info('Connection error:', error);
       };
 
       const handleDisconnect = () => {
-        console.log('Disconnected from backend');
+        console.info('Disconnected from backend');
       };
 
       const handleChatUpdate = (newMessages) => {
         setMessages(newMessages);
       };
 
-      const handleUserJoined = (joinMessage) => {
-        setMessages(prevMessages => [...prevMessages, joinMessage]);
+      const handleUserJoined = (user) => {
+        // setMessages(prevMessages => [...prevMessages, joinMessage]);
+      };
+
+      const handleGameUpdate = (gameUpdate) => {
+        setGame(gameUpdate);
       };
 
       socket.on('connect', handleConnect);
@@ -37,6 +42,7 @@ const Game = ({ signOut, socket }) => {
       socket.on('disconnect', handleDisconnect);
       socket.on('chatUpdate', handleChatUpdate);
       socket.on('userJoined', handleUserJoined);
+      socket.on('gameUpdate', handleGameUpdate);
 
       return () => {
         socket.off('connect', handleConnect);
@@ -44,6 +50,7 @@ const Game = ({ signOut, socket }) => {
         socket.off('disconnect', handleDisconnect);
         socket.off('chatUpdate', handleChatUpdate);
         socket.off('userJoined', handleUserJoined);
+        socket.off('gameUpdate', handleGameUpdate);
       };
     }
   }, [socket]);
@@ -56,7 +63,10 @@ const Game = ({ signOut, socket }) => {
         socket={socket}
         messages={messages}
       />
-      <Table/>
+      {game && <Table
+        user={user}
+        players={game?.players}
+      />}
       <LogoutButton
         onClick={signOut}
       />
@@ -67,6 +77,7 @@ const Game = ({ signOut, socket }) => {
 Game.propTypes = {
   signOut: propTypes.func.isRequired,
   socket: propTypes.any.isRequired,
+  user: propTypes.any.isRequired,
 };
 
 export default Game;

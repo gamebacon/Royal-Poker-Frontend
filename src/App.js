@@ -1,30 +1,34 @@
 // src/App.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth } from './firebase';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useSocket } from './SocketContext';
 import Game from './game/Game';
 import LoginModal from './login/LoginModal';
+import { LuLoader2 } from 'react-icons/lu';
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [isLoading, setLoading] = useState(false);
   const socket = useSocket();
 
   useEffect(() => {
     if (socket) {
-      console.log('Socket initialized in App:', socket);
+      console.info('Socket initialized in App');
     } else {
-      console.log('Socket not yet initialized');
+      console.info('Socket not yet initialized');
     }
   }, [socket]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
+        setLoading(true);
         const token = await user.getIdToken();
-        console.log('User authenticated:', user);
+        setLoading(false);
+        console.info('User authenticated:', user.name);
         if (socket) {
-          console.log('Setting socket auth and connecting');
+          console.info('Setting socket auth and connecting');
           socket.auth = { token };
           socket.connect();
         }
@@ -39,7 +43,9 @@ const App = () => {
   const signInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
+      setLoading(true);
       const result = await signInWithPopup(auth, provider);
+      setLoading(false);
       setUser(result.user);
     } catch (error) {
       console.error('Error signing in with Google:', error);
@@ -49,12 +55,14 @@ const App = () => {
 
   const handleSignOut = async () => {
     try {
+      setLoading(true);
       await signOut(auth);
+      setLoading(false);
       setUser(null);
       if (socket) {
         socket.disconnect();
       }
-      console.log('User signed out successfully');
+      console.info('User signed out successfully');
     } catch (error) {
       console.error('Error signing out: ', error);
     }
@@ -68,13 +76,20 @@ const App = () => {
         <Game 
           signOut={handleSignOut}
           socket={socket}
+          user={user}
         />
       ) : (
-        <LoginModal
-          onSubmit={signInWithGoogle}
-        />
-      )}
-    </div>
+          !isLoading ?
+          <LoginModal
+            onSubmit={signInWithGoogle}
+          /> : 
+          <LuLoader2
+          className='animate-spin absolute top-1/2 left-1/2 text-white'
+            size={64}
+          />
+      )
+    }
+  </div>
   );
 };
 

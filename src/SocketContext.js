@@ -13,7 +13,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     const newSocket = io('http://localhost:5050', { autoConnect: false });
-    console.log('Socket instance created:', newSocket); // Log socket instance creation
+    console.info('Socket instance created'); // Log socket instance creation
     setSocket(newSocket);
 
     return () => {

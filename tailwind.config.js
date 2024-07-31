@@ -10,11 +10,18 @@ module.exports = {
   // Define the theme and extend it with custom values
   theme: {
     extend: {
+      screens: {
+        'sm': '640px',  // Small devices (landscape phones, 640px and up)
+        'md': '768px',  // Medium devices (tablets, 768px and up)
+        'lg': '1024px', // Large devices (desktops, 1024px and up)
+        'xl': '1280px', // Extra large devices (large desktops, 1280px and up)
+      },
       colors: {
         primary: '#34ff8083',
         secondary: '#ffed4a',
         accent: '#e3342f',
         tableGreen: '#477148',
+        tableBorder: '#28282B',
         background: '#19284c'
       },
       spacing: {
