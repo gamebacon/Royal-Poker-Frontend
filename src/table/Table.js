@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PlayerPosition from './PlayerPosition'
+import Player from './Player'
 
 const Table = props => {
   const playerId = props.user.uid;
@@ -23,10 +23,11 @@ const Table = props => {
          '
     >
         {rotatedPlayers?.map((player, index) => (
-          <PlayerPosition
+          <Player
             key={index}
             seat={index}
             name={player.name}
+            money={player.money}
             image={player.image}
           />
       ))}
