@@ -7,9 +7,19 @@ const Chat = ({ socket, messages }) => {
   const [hidden, setHidden] = useState(true);
   const [message, setMessage] = useState('');
   const scrollRect = useRef();
+  const chatRef = useRef();
 
   useEffect(() => {
     scrollDown();
+    const handleClickOutside = (event) => {
+      if (!chatRef.current?.contains(event.target)) {
+        setHidden(true);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const scrollDown = () => {
@@ -48,17 +58,20 @@ const Chat = ({ socket, messages }) => {
 
   return (
     <div
-      className='fixed bottom-16 left-14 rounded-md max-h-[500px] max-w-[500px]
-      z-10 bg-white'
+      className='fixed bottom-16 left-14 z-10'
     >
         <button
-          className='absolute -top-8 left-1/2' 
+          className='absolute -top-8 left-1/2 transform -translate-x-1/2'
           onClick={() => setHidden(!hidden)}
         >
           {!hidden && <span
             className='text-xs underline text-white'
           >Close</span>}
         </button>
+    <div
+      ref={chatRef}
+      className='rounded-md max-h-[500px] max-w-[500px] bg-white overflow-hidden'
+    >
       <div className={`flex w-full h-12 p-2 space-x-1 ${hidden ? '' : 'border-b border-black'}`}
         onClick={() => setHidden(false)}
       >
@@ -66,7 +79,7 @@ const Chat = ({ socket, messages }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className='pl-2 p-1 rounded-sm w-3/4 outline-none'
-          placeholder='Say something nice'
+          placeholder='Say something'
           onKeyDown={onEnter}
         />
         <button
@@ -103,6 +116,7 @@ const Chat = ({ socket, messages }) => {
           ))}
         </ol>
       </div>
+    </div>
     </div>
   );
 };
