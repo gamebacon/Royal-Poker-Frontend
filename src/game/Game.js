@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import Chat from '../chat/Chat';
-import LogoutButton from '../generic/LogoutButton';
-import Table from '../table/Table';
+import LogoutButton from '../components/generic/LogoutButton';
+import Table from '../components/table/Table';
 
 const Game = ({ signOut, socket, user }) => {
   const [game, setGame] = useState(null);

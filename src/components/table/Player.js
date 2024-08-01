@@ -7,11 +7,11 @@ const Player = props => {
   return (
     <div
         className={`absolute flex flex-col seat-${props.seat}
-        justify-center items-center space-y-1`}
+        justify-center items-center space-y-1 h-fit w-fit`}
     >
-        <img
-            className={`rounded-full border-[3px] border-white p-1
-                ${isUserPos ? 'size-20' : 'size-12'}`}
+        <img 
+            className={`rounded-full border md:border-2 border-white p-1
+                ${isUserPos ? 'size-14 md:size-20' : 'size-10 md:size-14'}`}
             alt='player-image'
             src={props.image}
         />
@@ -19,7 +19,12 @@ const Player = props => {
             className='flex flex-col justify-center text-center'
         >
             <label
-                className='text-sx text-green-700'
+                className='text-white font-medium text-xs text-center'
+            >
+                {props.name} - {props.seat}
+            </label>
+            <label
+                className='text-sx text-white font-semibold'
             >
                 <span
                     className='text-xs'
@@ -30,9 +35,6 @@ const Player = props => {
                     className='text-xs'
                 >{props.money.toLocaleString()}</span>
             </label>
-            <label
-                className='text-white font-medium text-xs text-center'
-            >{props.name}</label>
         </div>
     </div>
   )

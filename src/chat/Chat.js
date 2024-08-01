@@ -58,10 +58,10 @@ const Chat = ({ socket, messages }) => {
 
   return (
     <div
-      className='fixed bottom-16 left-14 z-10'
+      className='fixed top-4 md:top-auto md:bottom-16 left-4 md:left-14 z-10'
     >
         <button
-          className='absolute -top-8 left-1/2 transform -translate-x-1/2'
+          className='absolute -bottom-8 md:bottom-auto md:-top-8 left-1/2 transform -translate-x-1/2'
           onClick={() => setHidden(!hidden)}
         >
           {!hidden && <span
@@ -70,7 +70,7 @@ const Chat = ({ socket, messages }) => {
         </button>
     <div
       ref={chatRef}
-      className='rounded-md max-h-[500px] max-w-[500px] bg-white overflow-hidden'
+      className='rounded-md max-h-[500px] max-w-[300px] md:max-w-[500px] bg-white overflow-hidden'
     >
       <div className={`flex w-full h-12 p-2 space-x-1 ${hidden ? '' : 'border-b border-black'}`}
         onClick={() => setHidden(false)}

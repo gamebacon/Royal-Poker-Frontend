@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useEffect, useState } from 'react';
-import { auth } from './firebase';
+import { auth } from './auth/firebase';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useSocket } from './SocketContext';
 import Game from './game/Game';
@@ -70,10 +70,10 @@ const App = () => {
 
   return (
     <div
-      className='relative h-screen w-screen p-10'
+      className='relative h-screen w-screen md:p-10'
     >
       <div
-        className='bg-gradient-to-br from-[#354c7c] to-[#022954] rounded-3xl w-full h-full'
+        className='bg-gradient-to-br from-[#354c7c] to-[#022954] md:rounded-3xl w-full h-full'
       >
       {user ? (
         <Game 

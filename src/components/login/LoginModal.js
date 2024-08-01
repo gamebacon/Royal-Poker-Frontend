@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import SignInOption from './SignInOption';
-import { AiOutlineMail } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { GiPokerHand } from 'react-icons/gi';
 import { BiCopyright } from 'react-icons/bi';
@@ -14,21 +13,18 @@ const LoginModal = ({onSubmit}) => {
     const signInOptions = [
         {
             icon: <FcGoogle
-                size={20}
             />,
             type: 'Google',
             onClick: () => onSubmit(),
         },
         {
             icon: <FaFacebook
-                size={20}
             />,
             type: 'Facebook',
             onClick: () => onSubmit(),
         },
         {
             icon: <BsTwitterX
-                size={20}
             />,
             type: 'Twitter',
             onClick: () => onSubmit(),
@@ -39,7 +35,7 @@ const LoginModal = ({onSubmit}) => {
         <div
             className='bg-white
             absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-            max-w-[500px] max-h-[800px]  w-1/3 h-1/2
+            max-w-[300px] md:max-w-[500px] max-h-[800px]  w-1/3 h-1/2
             border mt-20
             h-fit w-full shadow-lg rounded-2xl p-10'
         >

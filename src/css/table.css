@@ -1,0 +1,109 @@
+/* Base styles for seat positioning (default for landscape) */
+.seat-0 { 
+  bottom: 10px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+}
+
+.seat-1 { 
+  bottom: 10px; 
+  left: 15%; 
+}
+
+.seat-2 { 
+  bottom: 30%; 
+  left: 10px; 
+  transform: translateY(50%); 
+}
+
+.seat-3 { 
+  top: 30%; 
+  left: 10px; 
+  transform: translateY(-50%); 
+}
+
+.seat-4 { 
+  top: 10px; 
+  left: 15%; 
+}
+
+.seat-5 { 
+  top: 10px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+}
+
+.seat-6 { 
+  top: 10px; 
+  right: 15%; 
+}
+
+.seat-7 { 
+  top: 30%; 
+  right: 10px; 
+  transform: translateY(-50%); 
+}
+
+.seat-8 { 
+  bottom: 30%; 
+  right: 10px; 
+  transform: translateY(50%); 
+}
+
+.seat-9 { 
+  bottom: 10px; 
+  right: 15%; 
+}
+
+/* Adjustments for portrait orientation */
+@media (orientation: portrait) {
+  .seat-0 { 
+    bottom: 10px; 
+  }
+
+  .seat-1 { 
+    bottom: 10%; 
+    left: 10px; 
+  }
+
+  .seat-2 { 
+    bottom: 40%; 
+    left: 0px; 
+  }
+
+  .seat-3 { 
+    top: 40%; 
+    left: 0px; 
+  }
+
+  .seat-4 { 
+    top: 10%; 
+    left: 10px; 
+  }
+
+  .seat-5 { 
+    top: 10px; 
+  }
+
+  .seat-6 { 
+    top: 10%; 
+    right: 10px; 
+  }
+
+  .seat-7 { 
+    top: 40%; 
+    right: 0px; 
+  }
+
+  .seat-8 { 
+    bottom: 40%; 
+    right: 0px; 
+  }
+
+  .seat-9 { 
+    bottom: 10%; 
+    right: 10px; 
+  }
+
+
+}
