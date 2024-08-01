@@ -4,7 +4,7 @@ import { auth } from './auth/firebase';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useSocket } from './SocketContext';
 import Game from './game/Game';
-import LoginModal from './login/LoginModal';
+import LoginModal from './components/login/LoginModal';
 import { LuLoader2 } from 'react-icons/lu';
 
 const App = () => {

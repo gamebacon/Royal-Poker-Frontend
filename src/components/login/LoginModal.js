@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import SignInOption from './SignInOption';
+import SignInOption from './SignInOption'
 import { FcGoogle } from 'react-icons/fc';
 import { GiPokerHand } from 'react-icons/gi';
 import { BiCopyright } from 'react-icons/bi';

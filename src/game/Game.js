@@ -1,7 +1,7 @@
 // src/Game.js
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import Chat from '../chat/Chat';
+import Chat from '../components/chat/Chat';
 import LogoutButton from '../components/generic/LogoutButton';
 import Table from '../components/table/Table';
 
