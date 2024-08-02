@@ -1,20 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import BlindChip from '../generic/chips/BlindChip';
 
 const Player = props => {
     const isUserPos = props.seat === 0;
-
+    const blindType = props.isBigBlind ? 'BIG' : props.isSmallBlind ? 'SMALL' : null;
   return (
     <div
         className={`absolute flex flex-col seat-${props.seat}
         justify-center items-center space-y-1 h-fit w-fit`}
     >
-        <img 
-            className={`rounded-full border md:border-2 border-white p-1
-                ${isUserPos ? 'size-14 md:size-20' : 'size-10 md:size-14'}`}
-            alt='player-image'
-            src={props.image}
-        />
+        <div
+            className='relative'
+        >
+            <div
+                className={`rounded-full border md:border-2 border-white overflow-hidden
+                    ${isUserPos ? 'size-14 md:size-20' : 'size-10 md:size-14'}
+                    `}
+            >
+                <img
+                    className={`h-full w-full`}
+                    alt='player-image'
+                    src={props.image}
+                />
+            </div>
+            {blindType && <BlindChip
+                type={blindType}
+            />}
+        </div>
         <div
             className='flex flex-col justify-center text-center'
         >
@@ -45,6 +58,8 @@ Player.propTypes = {
     name: PropTypes.string.isRequired,
     money: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
+    isSmallBlind: PropTypes.bool.isRequired,
+    isBigBlind: PropTypes.bool.isRequired,
 }
 
 export default Player

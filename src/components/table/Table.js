@@ -25,7 +25,7 @@ const Table = (props) => {
 
   const allPlayers = [
     ...rotatedPlayers,
-    ...mockedPlayers
+    // ...mockedPlayers
   ];
 
 
@@ -48,6 +48,8 @@ const Table = (props) => {
           name={player.name}
           money={player.money}
           image={player.image}
+          isSmallBlind={props.game.blinds.small.playerId === player.id}
+          isBigBlind={props.game.blinds.big.playerId === player.id}
         />
       ))}
     </div>
@@ -55,6 +57,7 @@ const Table = (props) => {
 };
 
 Table.propTypes = {
+  game: PropTypes.any,
   players: PropTypes.array,
   user: PropTypes.shape({
     uid: PropTypes.string.isRequired

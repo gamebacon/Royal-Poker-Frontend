@@ -4,10 +4,16 @@ import propTypes from 'prop-types';
 import Chat from '../components/chat/Chat';
 import LogoutButton from '../components/generic/LogoutButton';
 import Table from '../components/table/Table';
+import ActionPanel from '../components/table/interface/ActionPanel';
 
 const Game = ({ signOut, socket, user }) => {
   const [game, setGame] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [currentPlayer, setCurrentPlayer] = useState(false);
+
+  const onAction = (action) => {
+    socket.emit('makeMove', action)
+  }
+
 
   useEffect(() => {
     if (socket) {
@@ -25,32 +31,39 @@ const Game = ({ signOut, socket, user }) => {
         console.info('Disconnected from backend');
       };
 
-      const handleChatUpdate = (newMessages) => {
-        setMessages(newMessages);
-      };
-
       const handleUserJoined = (user) => {
-        // setMessages(prevMessages => [...prevMessages, joinMessage]);
       };
 
       const handleGameUpdate = (gameUpdate) => {
         setGame(gameUpdate);
+        setCurrentPlayer(gameUpdate.currentPlayerId === user.uid);
+      };
+
+      const handleGameStart = () => {
+        console.log('game start!')
+      };
+
+      const handlePlayerHand = (hand) => {
+        console.log('hand!')
+        console.log(hand);
       };
 
       socket.on('connect', handleConnect);
       socket.on('connect_error', handleConnectError);
       socket.on('disconnect', handleDisconnect);
-      socket.on('chatUpdate', handleChatUpdate);
       socket.on('userJoined', handleUserJoined);
+      socket.on('gameStart', handleGameStart);
       socket.on('gameUpdate', handleGameUpdate);
+      socket.on('playerHand', handlePlayerHand);
 
       return () => {
         socket.off('connect', handleConnect);
         socket.off('connect_error', handleConnectError);
         socket.off('disconnect', handleDisconnect);
-        socket.off('chatUpdate', handleChatUpdate);
         socket.off('userJoined', handleUserJoined);
         socket.off('gameUpdate', handleGameUpdate);
+        socket.off('gameStart', handleGameStart);
+        socket.off('playerHand', handlePlayerHand);
       };
     }
   }, [socket]);
@@ -61,11 +74,18 @@ const Game = ({ signOut, socket, user }) => {
     >
       <Chat
         socket={socket}
-        messages={messages}
       />
       {game && <Table
         user={user}
         players={game?.players}
+        game={game}
+      />}
+      {currentPlayer && 
+      <ActionPanel
+        onCheck={() => onAction('check')}
+        onBet={() => onAction('bet')}
+        onRaise={() => onAction('raise')}
+        onFold={() => onAction('fold')}
       />}
       <LogoutButton
         onClick={signOut}
