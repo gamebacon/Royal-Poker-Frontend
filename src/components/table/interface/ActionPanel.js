@@ -9,29 +9,30 @@ const ActionPanel = props => {
     >
         <button
             className=''
-            onClick={props.onCheck}
+            onClick={() => props.onAction('CHECK')}
         >Check</button>
         <button
             className=''
-            onClick={props.onBet}
+            onClick={() => props.onAction('CALL')}
+        >Call</button>
+        <button
+            className=''
+            onClick={() => props.onAction('BET', 10_000)}
         >Bet</button>
         <button
             className=''
-            onClick={props.onRaise}
+            onClick={() => props.onAction('RAISE', 90_000)}
         >Raise</button>
         <button
             className=''
-            onClick={props.onFold}
+            onClick={() => props.onAction('FOLD')}
         >Fold</button>
     </div>
   )
 }
 
 ActionPanel.propTypes = {
-    onCheck: PropTypes.func.isRequired,
-    onBet: PropTypes.func.isRequired,
-    onRaise: PropTypes.func.isRequired,
-    onFold: PropTypes.func.isRequired,
+    onAction: PropTypes.func.isRequired,
 }
 
 export default ActionPanel

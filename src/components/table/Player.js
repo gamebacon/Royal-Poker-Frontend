@@ -29,10 +29,10 @@ const Player = props => {
             />}
         </div>
         <div
-            className='flex flex-col justify-center text-center'
+            className='flex flex-col justify-center text-center absolute -bottom-16'
         >
             <label
-                className='text-white font-medium text-xs text-center'
+                className='text-white font-medium text-xs text-center whitespace-nowrap'
             >
                 {props.name} - {props.seat}
             </label>
@@ -49,6 +49,10 @@ const Player = props => {
                 >{props.money.toLocaleString()}</span>
             </label>
         </div>
+        <div
+            className='absolute -top-10'
+        >${props.currentBet.toLocaleString()}</div>
+        <div>{props.action}</div>
     </div>
   )
 }
@@ -57,6 +61,8 @@ Player.propTypes = {
     seat: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     money: PropTypes.number.isRequired,
+    action: PropTypes.string.isRequired,
+    currentBet: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     isSmallBlind: PropTypes.bool.isRequired,
     isBigBlind: PropTypes.bool.isRequired,

@@ -34,13 +34,17 @@ const Table = (props) => {
       className='bg-tableGreen
         absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
         rounded-[350px] relative
-        border-[30px] md:border-[60px]
         bg-gradient-to-tl from-green-700 to-green-800
         border-black
         h-2/3
         w-4/5
       '
     >
+      <div
+        className='absolute'
+      >
+        ${props.game.pot.toLocaleString()}
+      </div>
       {allPlayers?.map((player, index) => (
         <Player
           key={player.id}
@@ -48,6 +52,8 @@ const Table = (props) => {
           name={player.name}
           money={player.money}
           image={player.image}
+          action={player.action}
+          currentBet={player.currentBet}
           isSmallBlind={props.game.blinds.small.playerId === player.id}
           isBigBlind={props.game.blinds.big.playerId === player.id}
         />
