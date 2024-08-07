@@ -34,8 +34,9 @@ const Table = (props) => {
       className='bg-tableGreen
         absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
         rounded-[350px] relative
+        border-[50px]
         bg-gradient-to-tl from-green-700 to-green-800
-        border-black
+        border-gray-900/80
         h-2/3
         w-4/5
       '
@@ -56,6 +57,8 @@ const Table = (props) => {
           currentBet={player.currentBet}
           isSmallBlind={props.game.blinds.small.playerId === player.id}
           isBigBlind={props.game.blinds.big.playerId === player.id}
+          playerHand={props.playerHand}
+          isCurrentPlayer={props.currentPlayerId === player.id}
         />
       ))}
     </div>
@@ -67,7 +70,9 @@ Table.propTypes = {
   players: PropTypes.array,
   user: PropTypes.shape({
     uid: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  playerHand: PropTypes.array,
+  currentPlayerId: PropTypes.string.isRequired,
 };
 
 export default Table;

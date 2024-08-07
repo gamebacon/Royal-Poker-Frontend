@@ -10,6 +10,7 @@ import soundService from '../util/SoundService';
 const Game = ({ signOut, socket, user }) => {
   const [game, setGame] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(false);
+  const [playerHand, setPlayerHand] = useState([]);
 
   const onAction = (action, amount = -1) => {
     socket.emit('makeMove', {
@@ -49,8 +50,7 @@ const Game = ({ signOut, socket, user }) => {
       };
 
       const handlePlayerHand = (hand) => {
-        console.log('hand!')
-        console.log(hand);
+        setPlayerHand(hand.cards);
       };
 
       socket.on('connect', handleConnect);
@@ -84,6 +84,8 @@ const Game = ({ signOut, socket, user }) => {
         user={user}
         players={game?.players}
         game={game}
+        playerHand={playerHand}
+        currentPlayerId={game.currentPlayerId}
       />}
       {currentPlayer && 
       <ActionPanel

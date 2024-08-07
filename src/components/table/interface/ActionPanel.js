@@ -1,32 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ActionButton from './ActionButton'
 
 const ActionPanel = props => {
   return (
     <div
-        className='absolute bottom-3 right-10
+        className='absolute bottom-14 right-14
         flex justify-between space-x-4'
     >
-        <button
-            className=''
+        <ActionButton
+            label='Check'
             onClick={() => props.onAction('CHECK')}
-        >Check</button>
-        <button
-            className=''
+        />
+        <ActionButton
+            label='Call'
             onClick={() => props.onAction('CALL')}
-        >Call</button>
-        <button
-            className=''
+        />
+        <ActionButton
+            label='Bet'
             onClick={() => props.onAction('BET', 10_000)}
-        >Bet</button>
-        <button
-            className=''
-            onClick={() => props.onAction('RAISE', 90_000)}
-        >Raise</button>
-        <button
-            className=''
+        />
+        <ActionButton
+            label='Raise'
+            onClick={() => props.onAction('RAISE', 40_000)}
+        />
+        <ActionButton
+            label='Fold'
             onClick={() => props.onAction('FOLD')}
-        >Fold</button>
+        />
     </div>
   )
 }
