@@ -15,7 +15,6 @@ class SoundService {
 
   play(sound) {
     const audio = this.sounds[sound];
-    console.log(audio);
     if (audio) {
       audio.currentTime = 0; // Reset to start in case it's still playing
       audio.play().catch((error) => {
